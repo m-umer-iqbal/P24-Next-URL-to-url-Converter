@@ -1,3 +1,3 @@
 # URL to url Project
 
-This is a simple Next.js project that demonstrates how to convert a Uniform Resource Locator (URL) into a more user-friendly URL format.
+A simple Next.js app to convert long urls to short url format.
