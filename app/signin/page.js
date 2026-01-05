@@ -1,16 +1,25 @@
-'use client'
+"use client"
 
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useSession, signIn } from "next-auth/react"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
+import { signInUserContext } from "@/context/context"
 
 const SignUp = () => {
     const { data: session, status } = useSession()
+    const [socialMethod, setSocialMethod] = useState(null)
+    const { setSignInUser } = useContext(signInUserContext)
+    const router = useRouter()
 
-    if (status === "authenticated") {
-        console.log(session)
-        redirect("/profile")
-    }
+    useEffect(() => {
+        if (status === "authenticated" && session) {
+            setSignInUser({
+                status: true,
+                method: socialMethod
+            })
+            router.push('/')
+        }
+    }, [status, session, socialMethod, setSignInUser, router])
 
     return (
         <div className="flex flex-col justify-center items-center gap-6 mt-20">
@@ -19,7 +28,10 @@ const SignUp = () => {
                 <p className="text-center mt-4">Sign in now to transform your long URLs into sleek, shareable links and get instant access to your link history.</p>
             </div>
             <div className="flex flex-col gap-2">
-                <button onClick={() => signIn("google")}
+                <button onClick={() => {
+                    signIn("google")
+                    setSocialMethod("google")
+                }}
                     className="flex items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer">
                     <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
                         viewBox="-0.5 0 48 48" version="1.1">
@@ -47,7 +59,10 @@ const SignUp = () => {
                 </button>
 
 
-                <button onClick={() => signIn("linkedin")}
+                <button onClick={() => {
+                    signIn("linkedin")
+                    setSocialMethod("linkedin")
+                }}
                     className="flex items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer">
                     <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
                         viewBox="0 -2 44 44" version="1.1">
@@ -63,7 +78,10 @@ const SignUp = () => {
                     </svg> <span>Continue with LinkedIn</span>
                 </button>
 
-                <button onClick={() => signIn("facebook")}
+                <button onClick={() => {
+                    signIn("facebook")
+                    setSocialMethod("facebook")
+                }}
                     className="flex items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer">
                     <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
                         viewBox="0 0 48 48" version="1.1">
@@ -82,7 +100,10 @@ const SignUp = () => {
                 </button>
 
 
-                <button onClick={() => signIn("github")}
+                <button onClick={() => {
+                    signIn("github")
+                    setSocialMethod("github")
+                }}
                     className="flex items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer">
                     <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
                         viewBox="0 0 73 73" version="1.1">

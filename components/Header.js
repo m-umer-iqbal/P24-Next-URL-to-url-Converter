@@ -1,7 +1,14 @@
-import React from 'react'
+'use client'
+
+import React, { useContext } from 'react'
 import Link from "next/link"
+import { signInUserContext } from "@/context/context"
+import { useSession, signOut } from "next-auth/react"
 
 const Header = () => {
+    const { data: session } = useSession()
+    const { signInUser } = useContext(signInUserContext)
+
     return (
         <header className="text-gray-600 body-font w-full bg-[#30e84930]">
             <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -22,11 +29,20 @@ const Header = () => {
                     <Link href={"/profile"} className="mr-5 hover:text-gray-900 font-semibold transition-all duration-300 ease-in-out hover:text-xl cursor-pointer">Profile</Link>
                 </nav>
                 <div className="flex justify-center items-center gap-2">
-                    <Link href={"/signin"}>
-                        <button className="inline-flex items-center text-white bg-[#30e849] border-2 border-[#30e849] py-2 px-6 focus:outline-none hover:bg-black hover:border-black transition-all duration-300 ease-in-out rounded text-lg cursor-pointer font-semibold shadow shadow-green-500/20">
-                            Sign in
+                    {(session || signInUser?.status === true) ? (
+                        <button
+                            className="inline-flex items-center text-white bg-[#30e849] border-2 border-[#30e849] py-2 px-6 focus:outline-none hover:bg-black hover:border-black transition-all duration-300 ease-in-out rounded text-lg cursor-pointer font-semibold shadow shadow-green-500/20"
+                            onClick={() => signOut(signInUser?.method || undefined)}
+                        >
+                            Sign out
                         </button>
-                    </Link>
+                    ) : (
+                        <Link href={"/signin"}>
+                            <button className="inline-flex items-center text-white bg-[#30e849] border-2 border-[#30e849] py-2 px-6 focus:outline-none hover:bg-black hover:border-black transition-all duration-300 ease-in-out rounded text-lg cursor-pointer font-semibold shadow shadow-green-500/20">
+                                Sign in
+                            </button>
+                        </Link>
+                    )}
                 </div>
             </div>
         </header>
