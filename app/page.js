@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <section className="text-gray-600 body-font">
-      <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div className="container mx-auto flex px-5 py-12 md:flex-row flex-col items-center">
         <div className="lg:grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
           <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Uniform Resource Locator (URL) &#8594; url Converter</h1>
           <p className="mb-8 leading-relaxed">Make your links memorable. Shorten, customize, and manage your URLs to improve click-through rates and keep your content looking sharp across the web.</p>

@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
       >
         <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-size-[16px_16px]"></div>
         <Header />
-        <main className="flex-1 overflow-y-auto pt-24 pb-16 flex flex-col">
+        <main className="flex-1 overflow-y-auto py-8 flex flex-col">
           {children}
         </main>
         <Footer />
