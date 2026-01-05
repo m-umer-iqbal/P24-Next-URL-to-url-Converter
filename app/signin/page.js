@@ -9,10 +9,9 @@ const SignUp = () => {
 
     return (
         <div className="flex flex-col justify-center items-center gap-6 mt-20">
-            <h1 className="text-3xl font-bold text-center">Create Your Account</h1>
+            <h1 className="text-3xl font-bold text-center">Sign in to your account to get started</h1>
             <div className="flex flex-col justify-center items-center">
-                <p className="text-center mt-4">Sign up now to transform your long URLs into sleek, shareable links and get instant access to your link history.</p>
-                <p>Already a member? <Link href="/login" className="text-[#30e849] hover:text-black transition-all duration-300">Log In here</Link></p>
+                <p className="text-center mt-4">Sign in now to transform your long URLs into sleek, shareable links and get instant access to your link history.</p>
             </div>
             <div className="flex flex-col gap-2">
                 <button onClick={() => signIn("google")}

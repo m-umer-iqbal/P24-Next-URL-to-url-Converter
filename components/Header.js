@@ -21,15 +21,9 @@ const Header = () => {
                     <Link href={"/profile"} className="mr-5 hover:text-gray-900 font-semibold transition-all duration-300 ease-in-out hover:text-xl cursor-pointer">Profile</Link>
                 </nav>
                 <div className="flex justify-center items-center gap-2">
-                    <Link href={"/login"}>
-                        <button className="inline-flex items-center text-black border-2 border-black py-2 px-6 focus:outline-none hover:bg-black hover:border-black hover:text-white transition-all duration-300 ease-in-out rounded text-lg cursor-pointer font-semibold">
-                            Log in
-                        </button>
-                    </Link>
-
-                    <Link href={"/signup"}>
+                    <Link href={"/signin"}>
                         <button className="ml-4 inline-flex items-center text-white bg-[#30e849] border-2 border-[#30e849] py-2 px-6 focus:outline-none hover:bg-black hover:border-black transition-all duration-300 ease-in-out rounded text-lg cursor-pointer font-semibold shadow-lg shadow-green-500/20">
-                            Sign up
+                            Sign in
                         </button>
                     </Link>
                 </div>
