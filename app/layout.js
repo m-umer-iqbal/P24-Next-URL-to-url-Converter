@@ -1,7 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import SessionWrapper from "@/components/SessionWrapper";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,16 +23,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="h-full overflow-hidden">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full flex flex-col overflow-hidden`}
-      >
-        <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-size-[16px_16px]"></div>
-        <Header />
-        <main className="flex-1 overflow-y-auto py-8 flex flex-col">
-          {children}
-        </main>
-        <Footer />
-        <script src="https://cdn.lordicon.com/lordicon.js"></script>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased h-full flex flex-col overflow-hidden`}>
+        <SessionWrapper>
+          <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-size-[16px_16px]"></div>
+          <Header />
+          <main className="flex-1 overflow-y-auto py-8 flex flex-col">
+            {children}
+          </main>
+          <Footer />
+          <script src="https://cdn.lordicon.com/lordicon.js"></script>
+        </SessionWrapper>
       </body>
     </html>
   );
