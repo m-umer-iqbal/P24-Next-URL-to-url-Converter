@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from "next/link"
+
 const Header = () => {
     return (
         <header className="text-gray-600 body-font w-full bg-[#30e84930]">
@@ -22,7 +23,7 @@ const Header = () => {
                 </nav>
                 <div className="flex justify-center items-center gap-2">
                     <Link href={"/signin"}>
-                        <button className="ml-4 inline-flex items-center text-white bg-[#30e849] border-2 border-[#30e849] py-2 px-6 focus:outline-none hover:bg-black hover:border-black transition-all duration-300 ease-in-out rounded text-lg cursor-pointer font-semibold shadow-lg shadow-green-500/20">
+                        <button className="inline-flex items-center text-white bg-[#30e849] border-2 border-[#30e849] py-2 px-6 focus:outline-none hover:bg-black hover:border-black transition-all duration-300 ease-in-out rounded text-lg cursor-pointer font-semibold shadow shadow-green-500/20">
                             Sign in
                         </button>
                     </Link>

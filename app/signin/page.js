@@ -1,11 +1,16 @@
 'use client'
 
 import React from 'react'
-import Link from "next/link"
 import { useSession, signIn } from "next-auth/react"
+import { redirect } from "next/navigation"
 
 const SignUp = () => {
     const { data: session, status } = useSession()
+
+    if (status === "authenticated") {
+        console.log(session)
+        redirect("/profile")
+    }
 
     return (
         <div className="flex flex-col justify-center items-center gap-6 mt-20">
@@ -38,7 +43,7 @@ const SignUp = () => {
                             </g>
                         </g>
                     </svg>
-                    <span>Sign up with Google</span>
+                    <span>Continue with Google</span>
                 </button>
 
 
@@ -55,7 +60,7 @@ const SignUp = () => {
                                 </path>
                             </g>
                         </g>
-                    </svg> <span>Sign up with LinkedIn</span>
+                    </svg> <span>Continue with LinkedIn</span>
                 </button>
 
                 <button onClick={() => signIn("facebook")}
@@ -73,7 +78,7 @@ const SignUp = () => {
                         </g>
                     </svg>
 
-                    <span>Sign up with Facebook</span>
+                    <span>Continue with Facebook</span>
                 </button>
 
 
@@ -97,7 +102,7 @@ const SignUp = () => {
                         </g>
                     </svg>
 
-                    <span>Sign up with Github</span>
+                    <span>Continue with Github</span>
                 </button>
             </div>
         </div>

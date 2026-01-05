@@ -4,8 +4,7 @@ import React, { useRef, useState } from 'react'
 
 const Profile = () => {
     const [avatarName, setAvatarName] = useState('')
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
+    const [name, setName] = useState('')
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [editing, setEditing] = useState(false)
@@ -14,10 +13,9 @@ const Profile = () => {
 
     // Character limits
     const limits = {
-        firstName: 50,
-        lastName: 50,
-        username: 30,
-        email: 100,
+        name: 30,
+        username: 20,
+        email: 30,
     }
 
     const handleAvatarChange = (event) => {
@@ -52,7 +50,7 @@ const Profile = () => {
                             </p>
                         </div>
                     </div>
-                    {!editing && (<button className="inline-flex items-center text-sm font-semibold text-white bg-[#30e849] border-2 border-[#30e849] py-2 px-5 rounded-lg shadow-md hover:bg-black hover:border-black transition-all duration-300 cursor-pointer" onClick={() => setEditing(true)}>
+                    {!editing && (<button className="inline-flex items-center text-sm font-semibold text-white bg-[#30e849] border-2 border-[#30e849] py-2 px-5 rounded shadow-md hover:bg-black hover:border-black transition-all duration-300 cursor-pointer" onClick={() => setEditing(true)}>
                         Edit profile
                     </button>
                     )}
@@ -64,40 +62,23 @@ const Profile = () => {
                         <h2 className="text-lg font-semibold text-gray-900 mb-4">Account details</h2>
 
                         <form className="space-y-5">
-                            <div className="grid gap-4 sm:grid-cols-2">
-                                <div>
-                                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
-                                        First name
-                                    </label>
+                            <div>
+                                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                                    Name
+                                </label>
+                                <div className="relative">
                                     <input
-                                        id="firstName"
+                                        id="name"
                                         type="text"
-                                        placeholder="John"
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)}
-                                        maxLength={limits.firstName}
-                                        className="w-full rounded-lg border border-gray-300 bg-white/70 px-3 py-2 text-sm outline-none focus:border-[#30e849] focus:ring-2 focus:ring-[#30e84930] transition-colors"
+                                        placeholder="John Doe"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        maxLength={limits.name}
+                                        className="w-full rounded-lg border border-gray-300 bg-white/70 px-3 py-2 pr-16 text-sm outline-none focus:border-[#30e849] focus:ring-2 focus:ring-[#30e84930] transition-colors"
                                     />
-                                    <p className="text-xs text-gray-500 mt-1 text-right">
-                                        {firstName.length}/{limits.firstName}
-                                    </p>
-                                </div>
-                                <div>
-                                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Last name
-                                    </label>
-                                    <input
-                                        id="lastName"
-                                        type="text"
-                                        placeholder="Doe"
-                                        value={lastName}
-                                        onChange={(e) => setLastName(e.target.value)}
-                                        maxLength={limits.lastName}
-                                        className="w-full rounded-lg border border-gray-300 bg-white/70 px-3 py-2 text-sm outline-none focus:border-[#30e849] focus:ring-2 focus:ring-[#30e84930] transition-colors"
-                                    />
-                                    <p className="text-xs text-gray-500 mt-1 text-right">
-                                        {lastName.length}/{limits.lastName}
-                                    </p>
+                                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500 pointer-events-none">
+                                        {name.length}/{limits.name}
+                                    </span>
                                 </div>
                             </div>
 
@@ -105,9 +86,9 @@ const Profile = () => {
                                 <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
                                     Username
                                 </label>
-                                <div className="flex rounded-lg border border-gray-300 bg-white/70 focus-within:border-[#30e849] focus-within:ring-2 focus-within:ring-[#30e84930] transition-colors">
+                                <div className="flex rounded-lg border border-gray-300 bg-white/70 focus-within:border-[#30e849] focus-within:ring-2 focus-within:ring-[#30e84930] transition-colors relative">
                                     <span className="inline-flex items-center px-3 text-sm text-gray-500 border-r border-gray-200">
-                                        url.to/
+                                        @
                                     </span>
                                     <input
                                         id="username"
@@ -116,30 +97,32 @@ const Profile = () => {
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
                                         maxLength={limits.username}
-                                        className="w-full px-3 py-2 text-sm outline-none bg-transparent"
+                                        className="w-full px-3 py-2 pr-16 text-sm outline-none bg-transparent"
                                     />
+                                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500 pointer-events-none">
+                                        {username.length}/{limits.username}
+                                    </span>
                                 </div>
-                                <p className="text-xs text-gray-500 mt-1 text-right">
-                                    {username.length}/{limits.username}
-                                </p>
                             </div>
 
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                                     Email address
                                 </label>
-                                <input
-                                    id="email"
-                                    type="email"
-                                    placeholder="you@example.com"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    maxLength={limits.email}
-                                    className="w-full rounded-lg border border-gray-300 bg-white/70 px-3 py-2 text-sm outline-none focus:border-[#30e849] focus:ring-2 focus:ring-[#30e84930] transition-colors"
-                                />
-                                <p className="text-xs text-gray-500 mt-1 text-right">
-                                    {email.length}/{limits.email}
-                                </p>
+                                <div className="relative">
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        placeholder="you@example.com"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        maxLength={limits.email}
+                                        className="w-full rounded-lg border border-gray-300 bg-white/70 px-3 py-2 pr-16 text-sm outline-none focus:border-[#30e849] focus:ring-2 focus:ring-[#30e84930] transition-colors"
+                                    />
+                                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500 pointer-events-none">
+                                        {email.length}/{limits.email}
+                                    </span>
+                                </div>
                             </div>
 
                             <div>
@@ -159,7 +142,7 @@ const Profile = () => {
                                         onClick={triggerAvatarPicker}
                                         className="inline-flex items-center rounded-lg rounded-l-none px-4 py-2 text-xs font-semibold text-white bg-[#30e849] border border-[#30e849] hover:bg-black hover:border-black transition-colors cursor-pointer"
                                     >
-                                        Browse
+                                        Upload
                                     </button>
                                 </div>
                                 <input
@@ -175,13 +158,13 @@ const Profile = () => {
                                 <div className="flex flex-wrap items-center gap-3 pt-2">
                                     <button
                                         type="button"
-                                        className="inline-flex items-center justify-center rounded-lg bg-[#30e849] px-5 py-2 text-sm font-semibold text-white shadow-md hover:bg-black hover:border-black border-2 border-[#30e849] transition-all duration-300 cursor-pointer" onClick={() => setEditing(false)}
+                                        className="inline-flex items-center justify-center rounded bg-[#30e849] px-5 py-2 text-sm font-semibold text-white shadow-md hover:bg-black hover:border-black border-2 border-[#30e849] transition-all duration-300 cursor-pointer" onClick={() => setEditing(false)}
                                     >
                                         Save changes
                                     </button>
                                     <button
                                         type="button"
-                                        className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer" onClick={() => setEditing(false)}
+                                        className="inline-flex items-center justify-center rounded border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer" onClick={() => setEditing(false)}
                                     >
                                         Cancel
                                     </button>
