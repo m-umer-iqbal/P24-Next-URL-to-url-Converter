@@ -29,4 +29,4 @@ const userSchema = new mongoose.Schema({
     }
 }, { timestamps: true }); // Good practice to track when users sign up
 
-export const User = mongoose.model("User", userSchema)
+export const User = mongoose.models.User || mongoose.model("User", userSchema)
