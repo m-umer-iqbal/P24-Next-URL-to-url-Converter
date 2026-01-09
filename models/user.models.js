@@ -1,28 +1,30 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    openId: {
+    provider: {
         type: String,
         required: true
     },
-    name: {
+    openId: {
         type: String,
-        required: true,
-        maxLength: [30, "Max Character only 30"]
-    },
-    username: {
-        type: String,
-        required: true,
-        lowercase: true,
-        unique: true,
-        maxLength: [20, "Max Character only 20"]
+        required: true
     },
     email: {
         type: String,
         required: true,
         lowercase: true,
-        unique: true,
         maxLength: [50, "Email can be longer than 30 characters"] // Increased for safety
+    },
+    username: {
+        type: String,
+        required: true,
+        lowercase: true,
+        maxLength: [20, "Max Character only 20"]
+    },
+    name: {
+        type: String,
+        required: true,
+        maxLength: [30, "Max Character only 30"]
     },
     image: {
         type: String
