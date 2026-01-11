@@ -4,7 +4,8 @@ import React, { createContext, useState } from "react";
 export const signInUserContext = createContext({
     signInUser: {
         status: false,
-        method: null
+        provider: null,
+        openId: null
     },
     setSignInUser: () => { }
 });
@@ -12,7 +13,8 @@ export const signInUserContext = createContext({
 export const SignInUserContextUpdate = ({ children }) => {
     const [signInUser, setSignInUser] = useState({
         status: false,
-        method: null
+        provider: null,
+        openId: null
     });
 
     return (

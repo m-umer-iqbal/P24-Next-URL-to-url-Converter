@@ -7,19 +7,22 @@ import { signInUserContext } from "@/context/context"
 
 const SignUp = () => {
     const { data: session, status } = useSession()
-    const [socialMethod, setSocialMethod] = useState(null)
     const { setSignInUser } = useContext(signInUserContext)
     const router = useRouter()
 
     useEffect(() => {
         if (status === "authenticated" && session) {
+            console.log("Session", session)
             setSignInUser({
                 status: true,
-                method: socialMethod
+                provider: session.user.provider,
+                openId: session.user.openId
             })
-            router.push('/')
+            setTimeout(() => {
+                router.push("/profile")
+            }, 2000)
         }
-    }, [status, session, socialMethod, setSignInUser, router])
+    }, [status, session, setSignInUser, router])
 
     return (
         <div className="flex flex-col justify-center items-center gap-6 mt-20">
@@ -30,7 +33,6 @@ const SignUp = () => {
             <div className="flex flex-col gap-2">
                 <button onClick={() => {
                     signIn("google")
-                    setSocialMethod("google")
                 }}
                     className="flex items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer">
                     <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -61,7 +63,6 @@ const SignUp = () => {
 
                 <button onClick={() => {
                     signIn("linkedin")
-                    setSocialMethod("linkedin")
                 }}
                     className="flex items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer">
                     <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -80,7 +81,6 @@ const SignUp = () => {
 
                 <button onClick={() => {
                     signIn("facebook")
-                    setSocialMethod("facebook")
                 }}
                     className="flex items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer">
                     <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -102,7 +102,6 @@ const SignUp = () => {
 
                 <button onClick={() => {
                     signIn("github")
-                    setSocialMethod("github")
                 }}
                     className="flex items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer">
                     <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"

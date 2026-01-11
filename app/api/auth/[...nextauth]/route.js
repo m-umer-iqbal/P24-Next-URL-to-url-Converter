@@ -48,6 +48,22 @@ export const authOptions = {
         console.log("New User Created:", newUser)
       }
       return true
+    },
+    async jwt({ token, account, user }) {
+      // Add openId and provider to the token on initial sign in
+      if (account) {
+        token.openId = user.id
+        token.provider = account.provider
+      }
+      return token
+    },
+    async session({ session, token }) {
+      // Add openId and provider to the session object
+      if (token) {
+        session.user.openId = token.openId
+        session.user.provider = token.provider
+      }
+      return session
     }
   }
 }

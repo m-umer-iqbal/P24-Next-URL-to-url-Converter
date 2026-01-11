@@ -22,6 +22,7 @@ const Profile = () => {
             router.push("/signin")
         } else {
             setRender(true)
+            // await fetchProfile();
         }
     }, [])
 
@@ -45,6 +46,13 @@ const Profile = () => {
         }
     }
 
+    const fetchProfile = async () => {
+        const response = await fetch(`/api/user?provider=${signInUser.provider}&openId=${signInUser.openId}`, { cache: "no-store" })
+        const data = await response.json()
+        if (data.success) {
+            setName(data.user.name)
+        }
+    }
     if (render) {
         return (
             <section className="text-gray-800 body-font flex justify-center items-start min-h-full">
@@ -61,7 +69,7 @@ const Profile = () => {
                                 </div>
                             </div>
                             <div>
-                                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">My Profile</h1>
+                                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{name || "My Profile"}</h1>
                                 <p className="text-sm text-gray-600">
                                     @username • email@example.com
                                 </p>
