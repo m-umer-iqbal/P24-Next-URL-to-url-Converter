@@ -12,15 +12,12 @@ const SignUp = () => {
 
     useEffect(() => {
         if (status === "authenticated" && session) {
-            console.log("Session", session)
             setSignInUser({
                 status: true,
                 provider: session.user.provider,
                 openId: session.user.openId
             })
-            setTimeout(() => {
-                router.push("/profile")
-            }, 2000)
+            router.push("/profile")
         }
     }, [status, session, setSignInUser, router])
 

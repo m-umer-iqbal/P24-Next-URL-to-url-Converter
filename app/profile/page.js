@@ -3,12 +3,14 @@
 import React, { useRef, useState, useEffect, useContext } from 'react'
 import { useRouter } from "next/navigation"
 import { signInUserContext } from "@/context/context"
+import Image from "next/image"
 
 const Profile = () => {
     const [avatarName, setAvatarName] = useState('')
     const [name, setName] = useState('')
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
+
     const [editing, setEditing] = useState(false)
 
     const { signInUser } = useContext(signInUserContext)
@@ -17,13 +19,16 @@ const Profile = () => {
     const [render, setRender] = useState(false)
 
     useEffect(() => {
-        if (signInUser?.status === false) {
-            setRender(false)
-            router.push("/signin")
-        } else {
-            setRender(true)
-            // await fetchProfile();
+        const checkUser = async () => {
+            if (signInUser?.status === false) {
+                setRender(false)
+                router.push("/signin")
+            } else {
+                setRender(true)
+                await fetchProfile();
+            }
         }
+        checkUser()
     }, [])
 
     const avatarInputRef = useRef(null)
@@ -31,8 +36,8 @@ const Profile = () => {
     // Character limits
     const limits = {
         name: 30,
-        username: 20,
-        email: 30,
+        username: 30,
+        email: 50,
     }
 
     const handleAvatarChange = (event) => {
@@ -47,12 +52,28 @@ const Profile = () => {
     }
 
     const fetchProfile = async () => {
-        const response = await fetch(`/api/user?provider=${signInUser.provider}&openId=${signInUser.openId}`, { cache: "no-store" })
-        const data = await response.json()
-        if (data.success) {
-            setName(data.user.name)
+        try {
+
+            const response = await fetch(`/api/user?provider=${signInUser.provider}&openId=${signInUser.openId}`, { cache: "no-store" })
+            const data = await response.json()
+            if (data.success) {
+                setName(data.user.name)
+                setUsername(data.user.username)
+                setEmail(data.user.email)
+                setAvatarName(data.user.image)
+            } else {
+                setRender(false)
+                router.push("/signin")
+            }
+        } catch (error) {
+            console.log(error)
+            setRender(false)
+            setTimeout(() => {
+                router.push("/signin")
+            }, 2000);
         }
     }
+
     if (render) {
         return (
             <section className="text-gray-800 body-font flex justify-center items-start min-h-full">
@@ -60,18 +81,24 @@ const Profile = () => {
                     {/* Header + summary */}
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10">
                         <div className="flex items-center gap-4">
-                            {/* Profile image + edit */}
+                            {/* Profile image */}
                             <div className="flex flex-col items-center gap-2">
                                 <div
                                     className="relative h-20 w-20 rounded-full bg-[#30e84930] flex items-center justify-center text-2xl font-semibold text-black shadow-md overflow-hidden">
                                     {/* Placeholder initial – replace with <Image /> later */}
-                                    <span>U</span>
+                                    {avatarName ? <Image
+                                        src={avatarName || ""}
+                                        alt="Profile"
+                                        width={80}
+                                        height={80}
+                                        className="rounded-full"
+                                    /> : <span>{name ? name.charAt(0).toUpperCase() : "U"}</span>}
                                 </div>
                             </div>
                             <div>
                                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{name || "My Profile"}</h1>
                                 <p className="text-sm text-gray-600">
-                                    @username • email@example.com
+                                    {`@${username || "username"}`}
                                 </p>
                             </div>
                         </div>
@@ -100,6 +127,7 @@ const Profile = () => {
                                             onChange={(e) => setName(e.target.value)}
                                             maxLength={limits.name}
                                             className="w-full rounded-lg border border-gray-300 bg-white/70 px-3 py-2 pr-16 text-sm outline-none focus:border-[#30e849] focus:ring-2 focus:ring-[#30e84930] transition-colors"
+                                            disabled={editing ? false : true}
                                         />
                                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500 pointer-events-none">
                                             {name.length}/{limits.name}
@@ -123,6 +151,7 @@ const Profile = () => {
                                             onChange={(e) => setUsername(e.target.value)}
                                             maxLength={limits.username}
                                             className="w-full px-3 py-2 pr-16 text-sm outline-none bg-transparent"
+                                            disabled={editing ? false : true}
                                         />
                                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500 pointer-events-none">
                                             {username.length}/{limits.username}
@@ -143,6 +172,7 @@ const Profile = () => {
                                             onChange={(e) => setEmail(e.target.value)}
                                             maxLength={limits.email}
                                             className="w-full rounded-lg border border-gray-300 bg-white/70 px-3 py-2 pr-16 text-sm outline-none focus:border-[#30e849] focus:ring-2 focus:ring-[#30e84930] transition-colors"
+                                            disabled={editing ? false : true}
                                         />
                                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500 pointer-events-none">
                                             {email.length}/{limits.email}
@@ -161,6 +191,7 @@ const Profile = () => {
                                             readOnly
                                             value={avatarName || 'No file selected'}
                                             className="w-full px-3 py-2 text-sm outline-none bg-transparent text-gray-700"
+                                            disabled={editing ? false : true}
                                         />
                                         <button
                                             type="button"

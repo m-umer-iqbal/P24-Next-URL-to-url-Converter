@@ -13,13 +13,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         lowercase: true,
-        maxLength: [50, "Email can be longer than 30 characters"] // Increased for safety
+        maxLength: [50, "Email can be longer than 50 characters"]
     },
     username: {
         type: String,
         required: true,
         lowercase: true,
-        maxLength: [20, "Max Character only 20"]
+        maxLength: [30, "Max Character only 30"]
     },
     name: {
         type: String,
