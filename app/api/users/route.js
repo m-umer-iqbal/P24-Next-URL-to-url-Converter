@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 
 await connectDB();
 
+// Get users
 export async function GET(request) {
     const { searchParams } = new URL(request.url);
 
@@ -26,7 +27,7 @@ export async function GET(request) {
     } catch (error) {
         return NextResponse.json({
             success: false,
-            message: error
+            message: error.message || "An error occurred"
         })
     }
 }
