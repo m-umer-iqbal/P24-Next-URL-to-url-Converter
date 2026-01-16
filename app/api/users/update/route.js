@@ -3,9 +3,8 @@ import { User } from "@/models/user.models";
 import { NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
 
-await connectDB();
-
 export async function POST(request) {
+    await connectDB();
     const { searchParams } = new URL(request.url);
     const provider = searchParams.get("provider")
     const openId = searchParams.get("openId")

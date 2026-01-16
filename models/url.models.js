@@ -1,9 +1,8 @@
 import mongoose from "mongoose"
 
 const urlSchema = new mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+    openId: {
+        type: String,
         required: true
     },
     originalUrl: {

@@ -2,10 +2,9 @@ import connectDB from "@/db/connectDB";
 import { User } from "@/models/user.models";
 import { NextResponse } from "next/server";
 
-await connectDB();
-
 // Get users
 export async function GET(request) {
+    await connectDB();
     const { searchParams } = new URL(request.url);
 
     const provider = searchParams.get("provider")
