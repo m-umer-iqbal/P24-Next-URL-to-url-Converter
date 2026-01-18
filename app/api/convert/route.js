@@ -27,7 +27,7 @@ export async function POST(request) {
                 { status: 400 }
             );
         }
-        const url = await Url.findOne({ preferWord })
+        const url = await Url.findOne({ preferWord: cleanWord })
         if (url) {
             return NextResponse.json({
                 success: false,
@@ -35,9 +35,9 @@ export async function POST(request) {
             }, { status: 400 })
         }
 
-        const shortUrl = `${process.env.NEXT_PUBLIC_HOST}/${preferWord}`
+        const shortUrl = `${process.env.NEXT_PUBLIC_HOST}/${cleanWord}`
         const newUrl = await Url.create({
-            openId: openId, // Convert to ObjectId
+            openId: openId,
             originalUrl: cleanUrl,
             preferWord: cleanWord,
             shortUrl: shortUrl

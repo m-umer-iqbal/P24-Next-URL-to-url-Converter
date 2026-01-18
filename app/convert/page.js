@@ -68,8 +68,8 @@ const Convert = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    originalUrl: originalUrl,
-                    preferWord: preferWord,
+                    originalUrl: cleanUrl,
+                    preferWord: cleanWord,
                     openId: signInUser.openId
                 }),
             })
