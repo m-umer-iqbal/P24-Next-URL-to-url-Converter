@@ -17,7 +17,7 @@ const SignUp = () => {
                 provider: session.user.provider,
                 openId: session.user.openId
             })
-            router.push("/profile")
+            router.push("/")
         }
     }, [status, session, setSignInUser, router])
 
