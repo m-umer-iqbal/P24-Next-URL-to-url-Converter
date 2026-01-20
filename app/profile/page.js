@@ -28,7 +28,7 @@ const Profile = () => {
             if (signInUser?.status === false) {
                 setRender(false)
                 router.push("/signin")
-            } else {
+            } else if (signInUser?.status === true) {
                 setRender(true)
                 await fetchProfile();
             }
