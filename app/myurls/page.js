@@ -11,6 +11,9 @@ const MyUrls = () => {
     const [editingId, setEditingId] = useState(null)
     const [updating, setUpdating] = useState(false)
     const [editForm, setEditForm] = useState({ originalUrl: "", preferWord: "" })
+    const [page, setPage] = useState(1);
+    const [pagination, setPagination] = useState(null);
+    const LIMIT = 6;
 
     const { signInUser } = useContext(signInUserContext)
     const router = useRouter()
@@ -28,17 +31,18 @@ const MyUrls = () => {
         fetchUrls();
         setRender(true);
 
-    }, [signInUser]);
+    }, [signInUser, page]);
 
     const fetchUrls = async () => {
         const openId = signInUser.openId;
         try {
-            const response = await fetch(`/api/urls?openId=${openId}`, {
+            const response = await fetch(`/api/urls?openId=${openId}&page=${page}&limit=${LIMIT}`, {
                 method: "GET",
             })
             const data = await response.json()
             if (data.success) {
                 setUrls(data.urls)
+                setPagination(data.pagination);
             } else {
                 toast.error(data.message)
             }
@@ -212,44 +216,41 @@ const MyUrls = () => {
 
                     </div>
 
-                    {urls.length > 8 && <div className="flex justify-center">
-                        <nav aria-label="Pagination">
-                            <ul className="inline-flex items-center -space-x-px rounded-md text-sm shadow-sm">
-                                <li>
-                                    <a href="#" className="inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 font-medium text-gray-500 hover:bg-gray-50">
-                                        <span className="sr-only">Previous</span>
-                                        <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fillRule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clipRule="evenodd" />
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" aria-current="page" className="z-10 inline-flex items-center border border-gray-300 bg-gray-100 px-4 py-2 font-medium text-gray-700">1 </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-gray-500 hover:bg-gray-50">2 </a>
-                                </li>
-                                <li>
-                                    <span className="inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-gray-700">... </span>
-                                </li>
-                                <li>
-                                    <a href="#" className="inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-gray-500 hover:bg-gray-50">9 </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-gray-500 hover:bg-gray-50">10 </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 font-medium text-gray-500 hover:bg-gray-50">
-                                        <span className="sr-only">Next</span>
-                                        <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
-                                        </svg>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    }
+                    {pagination && pagination.totalPages > 1 && (
+                        <div className="flex justify-center items-center mt-8 space-x-4">
+                            <button
+                                disabled={!pagination.hasPrev}
+                                onClick={() => setPage(p => p - 1)}
+                                className={`inline-flex items-center justify-center rounded border-2 px-4 py-2 text-sm font-semibold transition-all duration-300 ${!pagination.hasPrev
+                                    ? 'border-gray-300 text-gray-400 cursor-not-allowed'
+                                    : 'border-[#30e849] text-[#30e849] hover:bg-black hover:text-white hover:border-black cursor-pointer'
+                                    }`}>
+                                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                                Previous
+                            </button>
+
+                            <div className="flex items-center space-x-2">
+                                <span className="text-gray-700 font-medium">Page</span>
+                                <span className="px-3 py-1 bg-[#30e849] text-white font-semibold rounded-md">{page}</span>
+                                <span className="text-gray-700 font-medium">of {pagination.totalPages}</span>
+                            </div>
+
+                            <button
+                                disabled={!pagination.hasNext}
+                                onClick={() => setPage(p => p + 1)}
+                                className={`inline-flex items-center justify-center rounded border-2 px-4 py-2 text-sm font-semibold transition-all duration-300 ${!pagination.hasNext
+                                    ? 'border-gray-300 text-gray-400 cursor-not-allowed'
+                                    : 'border-[#30e849] text-[#30e849] hover:bg-black hover:text-white hover:border-black cursor-pointer'
+                                    }`}>
+                                Next
+                                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    )}
                 </section >
             </>
         )
