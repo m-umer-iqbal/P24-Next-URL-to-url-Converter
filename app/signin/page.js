@@ -22,10 +22,10 @@ const SignUp = () => {
     }, [status, session, setSignInUser, router])
 
     return (
-        <div className="flex flex-col justify-center items-center gap-6 mt-20">
-            <h1 className="text-3xl font-bold text-center">Sign in to your account to get started</h1>
+        <div className="flex flex-col justify-center items-center gap-6 mt-12 md:mt-20 px-4 md:px-0">
+            <h1 className="text-2xl sm:text-3xl md:text-3xl font-bold text-center px-2 md:px-0">Sign in to your account to get started</h1>
             <div className="flex flex-col justify-center items-center">
-                <p className="text-center mt-4">Sign in now to transform your long URLs into sleek, shareable links and get instant access to your link history.</p>
+                <p className="text-center text-sm sm:text-base md:text-base">Sign in now to transform your long URLs into sleek, shareable links and get instant access to your link history.</p>
             </div>
             <div className="flex flex-col gap-2">
                 <button onClick={() => {
