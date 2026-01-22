@@ -153,15 +153,14 @@ const Profile = () => {
 
     if (render) {
         return (
-            <section className="text-gray-800 body-font flex justify-center items-start min-h-full">
+            <section className="text-gray-800 body-font flex justify-center items-start min-h-full px-4 sm:px-6 lg:px-8">
                 <div className="w-full max-w-5xl px-4 sm:px-6 lg:px-8">
                     {/* Header + summary */}
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6 mb-6 md:mb-10">
                         <div className="flex items-center gap-4">
                             {/* Profile image */}
                             <div className="flex flex-col items-center gap-2">
-                                <div
-                                    className="relative h-20 w-20 rounded-full bg-[#30e84930] flex items-center justify-center text-2xl font-semibold text-black shadow-md overflow-hidden">
+                                <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-[#30e84930] flex items-center justify-center text-xl sm:text-2xl font-semibold text-black shadow-md overflow-hidden">
                                     {avatarName instanceof File ? (
                                         <Image
                                             src={URL.createObjectURL(avatarName)}
@@ -202,9 +201,9 @@ const Profile = () => {
                         )}
                     </div>
 
-                    <div className="grid gap-8 lg:grid-cols-[2fr,1.2fr]">
+                    <div className="grid gap-6 md:gap-8 grid-cols-1 lg:grid-cols-[2fr,1.2fr]">
                         {/* Left: profile form */}
-                        <div className="bg-white/80 backdrop-blur rounded-2xl shadow-md border border-gray-100 p-6 sm:p-8">
+                        <div className="bg-white/80 backdrop-blur rounded-2xl shadow-md border border-gray-100 p-4 sm:p-6 md:p-8 mb-8 md:mb-12">
                             <h2 className="text-lg font-semibold text-gray-900 mb-4">Account details</h2>
 
                             <form className="space-y-5">
