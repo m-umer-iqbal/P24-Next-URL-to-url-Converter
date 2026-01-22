@@ -93,11 +93,10 @@ const Convert = () => {
 
     if (render) {
         return (
-            <div className="flex flex-col justify-center items-center gap-6 mt-20">
+            <div className="flex flex-col justify-center items-center gap-6 px-4">
                 <ToastContainer />
                 <h1 className="text-3xl font-bold text-center">Convert URL &#8594; url</h1>
-                <div className="lg:w-2/6 md:w-1/2 rounded-lg p-8 flex flex-col w-full mt-10 md:mt-0 bg-[#30e84930]">
-
+                <div className="lg:w-2/6 md:w-1/2 w-full rounded-lg px-6 md:p-8 flex flex-col bg-[#30e84930]">
                     <div className="relative mb-4">
                         <label htmlFor="full-name" className="leading-7 text-sm text-gray-600">URL</label>
                         <input type="text" id="full-name" name="full-name" className="w-full bg-white rounded border border-gray-300 focus:border-[#30e849] focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value={originalUrl} onChange={(e) => setOriginalUrl(e.target.value)} />
