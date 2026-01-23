@@ -35,10 +35,10 @@ const Header = () => {
 
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex md:ml-auto md:mr-auto items-center text-base justify-center">
-                    <Link href="/" className="mr-5 font-semibold transition-all duration-300 hover:text-xl">Home</Link>
-                    <Link href="/convert" className="mr-5 font-semibold transition-all duration-300 hover:text-xl">Convert</Link>
-                    <Link href="/myurls" className="mr-5 font-semibold transition-all duration-300 hover:text-xl">My urls</Link>
-                    <Link href="/profile" className="mr-5 font-semibold transition-all duration-300 hover:text-xl">Profile</Link>
+                    <Link href="/" className="mr-5 font-semibold transition-all duration-300 hover:text-xl hover:text-black">Home</Link>
+                    <Link href="/convert" className="mr-5 font-semibold transition-all duration-300 hover:text-xl hover:text-black">Convert</Link>
+                    <Link href="/myurls" className="mr-5 font-semibold transition-all duration-300 hover:text-xl hover:text-black">My urls</Link>
+                    <Link href="/profile" className="mr-5 font-semibold transition-all duration-300 hover:text-xl hover:text-black">Profile</Link>
                 </nav>
 
                 {/* Desktop Auth */}
@@ -46,13 +46,12 @@ const Header = () => {
                     {(session || signInUser?.status === true) ? (
                         <button
                             onClick={() => signOut(signInUser?.method || undefined)}
-                            className="text-white bg-[#30e849] border-2 border-[#30e849] py-2 px-6 hover:bg-black hover:border-black transition-all duration-300 rounded text-lg font-semibold shadow shadow-green-500/20"
-                        >
+                            className="cursor-pointer text-white bg-[#30e849] border-2 border-[#30e849] py-2 px-6 hover:bg-black hover:border-black transition-all duration-300 rounded text-lg font-semibold shadow shadow-green-500/20">
                             Sign out
                         </button>
                     ) : (
                         <Link href="/signin">
-                            <button className="text-white bg-[#30e849] border-2 border-[#30e849] py-2 px-6 hover:bg-black hover:border-black transition-all duration-300 rounded text-lg font-semibold shadow shadow-green-500/20">
+                            <button className="cursor-pointer text-white bg-[#30e849] border-2 border-[#30e849] py-2 px-6 hover:bg-black hover:border-black transition-all duration-300 rounded text-lg font-semibold shadow shadow-green-500/20 inline-flex items-center justify-center">
                                 Sign in
                             </button>
                         </Link>
@@ -81,13 +80,12 @@ const Header = () => {
                     {(session || signInUser?.status === true) ? (
                         <button
                             onClick={() => signOut(signInUser?.method || undefined)}
-                            className="w-full text-white bg-[#30e849] py-2 rounded font-semibold"
-                        >
+                            className="w-full text-white bg-[#30e849] py-2 rounded font-semibold cursor-pointer">
                             Sign out
                         </button>
                     ) : (
                         <Link href="/signin">
-                            <button className="w-full text-white bg-[#30e849] py-2 rounded font-semibold">
+                            <button className="cursor-pointer w-full text-white bg-[#30e849] py-2 rounded font-semibold text-center">
                                 Sign in
                             </button>
                         </Link>
